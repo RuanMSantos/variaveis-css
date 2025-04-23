@@ -1,0 +1,5 @@
+- Facilita a leitura/edição do CSS
+- Melhora a semântica
+- Diminui a propensão a erros
+- Abre novas possibilidades
+- Uso de CSS moderno e eficiente

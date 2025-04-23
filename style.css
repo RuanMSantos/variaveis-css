@@ -1,0 +1,129 @@
+/* Sintaxe */
+a {
+  --color-main: tomato;
+  color: var(--color-main);
+}
+
+/* Caso o valor não esteja disponível é possível fazer um follback,
+   Que permite passar um valor para caso o valor primário não esteja disponivel
+*/
+
+p {
+  --color-p: blue;
+  color: var(--color-p, red);
+}
+
+/* Também é possível utilizar variaveis para dar valor a outras variaveis */
+
+body {
+  --top-color: orange;
+  --bottom-color: yellow;
+  --my-gradient: linear-gradient(var(--top-color), var(--bottom-color));
+
+  height: 100vh;
+  background: var(--my-gradient);
+}
+
+/* A variaveis do CSS também funcionam em sistema de cascata e são passíveis de
+   sobreescrita
+*/
+
+/* Podemos dizer que as variaveis CSS tem um escopo, global e local */
+
+/* Global - Disponível em todas as classes e elementos */
+:root {
+  --module-size: 1rem;
+  --primary-color: tomato;
+  --font-family-primary: Arial;
+
+  --second-color: black;
+
+  --row-display: block;
+}
+
+/* Escopado/Local - Disponível a partir daqui apenas dentro da cascata*/
+.button {
+  --unit: 2rem;
+  padding: var(--unit);
+}
+
+/* Misturado */
+h1 {
+  --button-color: white;
+
+  all: initial;
+  background-color: var(--primary-color);
+  color: var(--button-color);
+  cursor: pointer;
+  font-family: var(--font-family-primary);
+  padding: var(--module-size) calc(var(--module-size) * 2);
+}
+
+/* Exemplo */
+
+div {
+  width: 200px;
+  height: 200px;
+}
+
+#first {
+  --second-color: white;
+  background-color: var(--second-color);
+}
+
+#second {
+  background-color: var(--second-color);
+}
+
+/* Neste exemplo a primeira div vai herdar a cor de dentro da variavel local 
+   Enquanto a segunda div vai herdar o valor da variavel global
+*/
+
+/* A forma correta de utilizar variaveis no CSS é não alterando a variavel 
+   e sim o valor
+*/
+
+/* Maneira errada de fazer 
+
+.c-button {
+  padding: var(--button-unit);
+}
+.c-button--small {
+  padding: var(--button-unit-small);
+}
+.c-button--large {
+  padding: var(--button-unit-large);
+}
+*/
+
+.c-button {
+  --button-unit: 1rem;
+  padding: var(--button-unit);
+}
+.c-button--small {
+  --button-unit: 0.5rem;
+}
+.c-button--large {
+  --button-unit: 1.5rem;
+}
+
+/* Dessa forma ficou tudo melhor, não é preciso declarar a variavel novamente
+   pois ela ja está declarada em c-button, classe que está em todos os 
+   elementos
+*/
+
+/* As variaveis tambem funcionam para fazer a responsividade */
+.row {
+  display: var(--row-display);
+}
+
+@media screen and (min-width: 600px) {
+  .row {
+    --row-display: flex;
+  }
+}
+
+/* A variavel foi criada globalmente em root, em seguida foi declarado que
+   o display da classe row teria o valor da variavel,
+   por fim na responsividade, foi alterado esse valor que estava sendo utilizado 
+*/
